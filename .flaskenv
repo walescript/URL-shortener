@@ -1,0 +1,2 @@
+FLASK_APP=scissorapp
+FLASK_ENV=development

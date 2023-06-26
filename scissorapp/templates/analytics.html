@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
+
+    <style>
+        /* Reset default margin and padding */
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    .site-header {
+        position: fixed;
+        width: 100%;
+        z-index: 100;
+    }
+
+    .container {
+        max-width: 960px;
+        margin: 100px auto 0;
+        padding: 20px;
+    }
+
+    h1 {
+        margin-bottom: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th,
+    td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #f1f1f1;
+        font-weight: bold;
+    }
+
+    </style>
+
+
+  <header class="site-header">
+    <nav class="navbar navbar-expand-lg fixed-top" style="background-color: #0E2954;">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{{ url_for('short.index') }}" style="color: whitesmoke; font-size: 24px; font-weight: bold;">SCISSOR</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+          aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-nav" id="navbarText">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('short.index') }}" style="color: whitesmoke;">Home</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="{{ url_for('short.dashboard') }}" style="color: whitesmoke;">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('short.logout') }}" style="color: whitesmoke;">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+<body>
+    <section class="section">
+        <div class="container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Original URL</th>
+                        <th>Short URL / Custom URL</th>
+                        <th>Visits</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for link in links %}
+                        <tr>
+                            
+                            <td>{{ link.original_url }}</td>
+                            {% if link.custom_url %}
+                                <td>{{ url_for('short.redirect_to_url', short_url=link.custom_url, _external=True) }}</td>
+                            {% else %}
+                                <td>{{ url_for('short.redirect_to_url', short_url=link.short_url, _external=True) }}</td>
+                            {% endif %}
+                            <td>{{ link.visits }}</td>
+                        </tr>
+                    {% endfor %}
+        </div>
+    </section>
+</body>
+
+</html>

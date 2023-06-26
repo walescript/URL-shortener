@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>URL Shortener</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body>
+    <header class="site-header">
+      <nav
+        class="navbar navbar-expand-lg fixed-top"
+        style="background-color: #0E2954"
+      >
+        <div class="container-fluid">
+          <a class="navbar-brand" style="color: whitesmoke; font-size: 24px; font-weight: bold;" href="{{ url_for('short.index') }}"
+            >SCISSOR</a
+          >
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarText"
+            aria-controls="navbarText"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="navbar-nav" id="navbarText">
+            {% if current_user.is_authenticated %}
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  aria-current="page"
+                  href="{{ url_for('short.index') }}" style="color: whitesmoke;"
+                  >Home</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('short.logout') }}" style="color: whitesmoke;"
+                  >Logout</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('short.analytics') }}" style="color: whitesmoke;"
+                  >History</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('short.dashboard') }}" style="color: whitesmoke;">Dashboard</a>
+              </li>
+            </ul>
+            {% else %}
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  aria-current="page"
+                  href="{{ url_for('short.index') }}" style="color: whitesmoke;"
+                  >Home</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('short.login') }}" style="color: whitesmoke;"
+                  >Login</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('short.register') }}" style="color: whitesmoke;"
+                  >Register</a
+                >
+              </li>
+            </ul>
+            {% endif %}
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <div class="maincontainer">
+        <h1>Shorten URLs. Generate QR codes.</h1>
+          <p>Build your brand's recognition and get detailed
+             insights on how your links are performing.</p>
+        <form action="{{ url_for('short.create_link') }}" method="POST">
+          <label for="long-url">Enter or Paste Your long URL:</label>
+          <input
+            type="text"
+            id="long-url"
+            name="long-url"
+            style="width: 50%"
+            placeholder="Enter your long URL here"
+            required
+          />
+          <input
+            type="text"
+            name="custom-url"
+            style="width: 50%"
+            placeholder="Custom URL (optional)"
+          />
+          <button type="submit" id="shorten-btn">Shorten</button>
+        </form>
+        {% if invalid %}
+        <p class="error">Invalid URL. Please enter a valid URL.</p>
+        {% endif %}
+      </div>
+
+    </div>
+    <section class="services">
+      <div class="service-content">
+        <h2>Advanced Statistics</h2>
+        <p>Track how your links are performing across the web with our advanced statistics dashboard.</p>
+      </div>
+      <div class="cards">
+        <div class=" card card1">
+          <h3>Brand Recognition</h3>
+          <p>Boost your brand recognition with each click.
+            Generic links don't mean a thing. Branded links help instil confidence in your content
+          </p>
+        </div>
+        <div class=" card card2">
+          <h3>Detailed Records</h3>
+          <p>Improve brand awareness and content discoverability
+             through customizable links. Supercharging audience engagement.
+          </p>
+        </div>
+        <div class=" card card3">
+          <h3>Fully Customizable</h3>
+          <p>Boost your brand recognition with each click.
+            Generic links don't mean a thing. Branded links help instil confidence in your content
+          </p>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy; 2023 URL Shortener. All rights reserved.</p>
+    </footer>
+    <!-- <script type="text/javascript" src="{{ url_for('static', filename='index.js') }}"></script> -->
+  </body>
+</html>
+
+
