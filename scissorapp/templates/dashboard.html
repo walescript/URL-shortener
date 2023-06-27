@@ -24,6 +24,7 @@
 
         .section {
             padding: 40px 0;
+            margin-top: 20px;
         }
 
         .container {
@@ -36,6 +37,7 @@
             grid-template-columns: repeat(3, 1fr);
             grid-gap: 20px;
             padding: 20px;
+            margin-top: 20px;
         }
 
         .title {
@@ -109,8 +111,9 @@
           <div class="card-body">
             <img src="{{ url_for('static', filename='image/' + link.qr_code_url) }}" alt="QR Code">    <div>Clicks: {{ link.visits }}</div>
             <div>Date Created: {{ link.date_created }}</div>
-            <div><a href="{{ url_for('short.redirect_to_url', short_url=new_link, _external=True) }}">{{ url_for('short.redirect_to_url', short_url=new_link, _external=True) }}</a> <br /></div>
-          </div>
+            <div>Old Link: {{ link.original_url }} <br /></div>
+            <div>New Link: <a href="{{ link.new_link }}">{{ link.new_link }}</a></div>
+        </div>
         </div>
         {% endfor %}
       </div>

@@ -107,6 +107,10 @@ def dashboard():
     for link in links:
         qr_code_url = generate_qr_code(link.original_url, link.custom_url)
         link.qr_code_url = qr_code_url
+        if link.custom_url:
+            link.new_link = url_for('short.redirect_to_url', short_url=link.custom_url, _external=True)
+        else:
+            link.new_link = url_for('short.redirect_to_url', short_url=link.short_url, _external=True)
 
     return render_template('dashboard.html', links=links)
 

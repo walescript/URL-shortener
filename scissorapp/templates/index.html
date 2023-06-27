@@ -58,7 +58,7 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('short.analytics') }}" style="color: whitesmoke;"
-                  >History</a
+                  >Analytics</a
                 >
               </li>
               <li class="nav-item">
@@ -96,7 +96,10 @@
         <h1>Shorten URLs. Generate QR codes.</h1>
           <p>Build your brand's recognition and get detailed
              insights on how your links are performing.</p>
-        <form action="{{ url_for('short.create_link') }}" method="POST">
+        {% if not current_user.is_authenticated %}
+          <p>Kindly <a href="{{ url_for('short.login') }}">Log In</a> or <a href="{{ url_for('short.register') }}">Sign Up</a> to use this service.</p>
+         {% endif %}
+                 <form action="{{ url_for('short.create_link') }}" method="POST">
           <label for="long-url">Enter or Paste Your long URL:</label>
           <input
             type="text"
@@ -118,7 +121,6 @@
         <p class="error">Invalid URL. Please enter a valid URL.</p>
         {% endif %}
       </div>
-
     </div>
     <section class="services">
       <div class="service-content">
